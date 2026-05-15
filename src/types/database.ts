@@ -1,5 +1,4 @@
-// Tipos de la base de datos Supabase
-// Si quieres regenerarlos automáticamente: npx supabase gen types typescript --project-id=<id> > database.ts
+// Tipos explícitos de Supabase (sin self-references para evitar `never` en build)
 
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
@@ -22,8 +21,17 @@ export interface Database {
           full_name?: string | null;
           avatar_url?: string | null;
           is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
         };
-        Update: Partial<Database["public"]["Tables"]["profiles"]["Insert"]>;
+        Update: {
+          id?: string;
+          email?: string;
+          full_name?: string | null;
+          avatar_url?: string | null;
+          is_active?: boolean;
+          updated_at?: string;
+        };
       };
       courses: {
         Row: {
@@ -40,11 +48,33 @@ export interface Database {
           is_active: boolean;
           created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["courses"]["Row"], "id" | "created_at"> & {
+        Insert: {
           id?: string;
+          slug: string;
+          title: string;
+          description?: string | null;
+          level?: string | null;
+          language?: string;
+          total_modules?: number;
+          icon?: string | null;
+          color_from?: string | null;
+          color_to?: string | null;
+          is_active?: boolean;
           created_at?: string;
         };
-        Update: Partial<Database["public"]["Tables"]["courses"]["Insert"]>;
+        Update: {
+          id?: string;
+          slug?: string;
+          title?: string;
+          description?: string | null;
+          level?: string | null;
+          language?: string;
+          total_modules?: number;
+          icon?: string | null;
+          color_from?: string | null;
+          color_to?: string | null;
+          is_active?: boolean;
+        };
       };
       user_course_enrollments: {
         Row: {
@@ -53,8 +83,18 @@ export interface Database {
           enrolled_at: string;
           last_visited_at: string | null;
         };
-        Insert: { user_id: string; course_id: string; enrolled_at?: string; last_visited_at?: string };
-        Update: Partial<Database["public"]["Tables"]["user_course_enrollments"]["Insert"]>;
+        Insert: {
+          user_id: string;
+          course_id: string;
+          enrolled_at?: string;
+          last_visited_at?: string | null;
+        };
+        Update: {
+          user_id?: string;
+          course_id?: string;
+          enrolled_at?: string;
+          last_visited_at?: string | null;
+        };
       };
       user_module_progress: {
         Row: {
@@ -65,11 +105,22 @@ export interface Database {
           activity_key: string;
           completed_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["user_module_progress"]["Row"], "id" | "completed_at"> & {
+        Insert: {
           id?: string;
+          user_id: string;
+          course_id: string;
+          module_slug: string;
+          activity_key: string;
           completed_at?: string;
         };
-        Update: Partial<Database["public"]["Tables"]["user_module_progress"]["Insert"]>;
+        Update: {
+          id?: string;
+          user_id?: string;
+          course_id?: string;
+          module_slug?: string;
+          activity_key?: string;
+          completed_at?: string;
+        };
       };
       user_quiz_attempts: {
         Row: {
@@ -85,11 +136,29 @@ export interface Database {
           details: Json | null;
           created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["user_quiz_attempts"]["Row"], "id" | "percentage" | "created_at"> & {
+        Insert: {
           id?: string;
+          user_id: string;
+          course_id: string;
+          module_slug: string;
+          quiz_type: string;
+          score: number;
+          total: number;
+          passed?: boolean;
+          details?: Json | null;
           created_at?: string;
         };
-        Update: Partial<Database["public"]["Tables"]["user_quiz_attempts"]["Insert"]>;
+        Update: {
+          id?: string;
+          user_id?: string;
+          course_id?: string;
+          module_slug?: string;
+          quiz_type?: string;
+          score?: number;
+          total?: number;
+          passed?: boolean;
+          details?: Json | null;
+        };
       };
       user_gamification: {
         Row: {
@@ -107,8 +176,36 @@ export interface Database {
           achievements: string[];
           updated_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["user_gamification"]["Row"], "updated_at"> & { updated_at?: string };
-        Update: Partial<Database["public"]["Tables"]["user_gamification"]["Insert"]>;
+        Insert: {
+          user_id: string;
+          course_id: string;
+          xp?: number;
+          level?: number;
+          streak?: number;
+          last_visit_date?: string | null;
+          tests_passed?: number;
+          perfect_tests?: number;
+          voice_correct?: number;
+          words_mastered?: number;
+          final_passed?: boolean;
+          achievements?: string[];
+          updated_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          course_id?: string;
+          xp?: number;
+          level?: number;
+          streak?: number;
+          last_visit_date?: string | null;
+          tests_passed?: number;
+          perfect_tests?: number;
+          voice_correct?: number;
+          words_mastered?: number;
+          final_passed?: boolean;
+          achievements?: string[];
+          updated_at?: string;
+        };
       };
       user_srs: {
         Row: {
@@ -123,11 +220,30 @@ export interface Database {
           mastered: boolean;
           updated_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["user_srs"]["Row"], "id" | "updated_at"> & {
+        Insert: {
           id?: string;
+          user_id: string;
+          course_id: string;
+          word_key: string;
+          interval_days?: number;
+          due_date?: string;
+          reps?: number;
+          ease_factor?: number;
+          mastered?: boolean;
           updated_at?: string;
         };
-        Update: Partial<Database["public"]["Tables"]["user_srs"]["Insert"]>;
+        Update: {
+          id?: string;
+          user_id?: string;
+          course_id?: string;
+          word_key?: string;
+          interval_days?: number;
+          due_date?: string;
+          reps?: number;
+          ease_factor?: number;
+          mastered?: boolean;
+          updated_at?: string;
+        };
       };
       user_notes: {
         Row: {
@@ -137,8 +253,20 @@ export interface Database {
           content: string;
           updated_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["user_notes"]["Row"], "updated_at"> & { updated_at?: string };
-        Update: Partial<Database["public"]["Tables"]["user_notes"]["Insert"]>;
+        Insert: {
+          user_id: string;
+          course_id: string;
+          scope: string;
+          content?: string;
+          updated_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          course_id?: string;
+          scope?: string;
+          content?: string;
+          updated_at?: string;
+        };
       };
       user_mistakes: {
         Row: {
@@ -150,12 +278,27 @@ export interface Database {
           correct_idx: number;
           created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["user_mistakes"]["Row"], "id" | "created_at"> & {
+        Insert: {
           id?: string;
+          user_id: string;
+          course_id: string;
+          question: string;
+          options: Json;
+          correct_idx: number;
           created_at?: string;
         };
-        Update: Partial<Database["public"]["Tables"]["user_mistakes"]["Insert"]>;
+        Update: {
+          id?: string;
+          user_id?: string;
+          course_id?: string;
+          question?: string;
+          options?: Json;
+          correct_idx?: number;
+        };
       };
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: Record<string, never>;
   };
 }
