@@ -6,6 +6,8 @@ export type QuizQuestion = {
   q: string;
   options: string[];
   correct: number; // índice de la respuesta correcta
+  explanation?: string; // explicación que se muestra al comprobar
+  reference?: string; // URL opcional a docs oficiales
 };
 
 export type Flashcard = {

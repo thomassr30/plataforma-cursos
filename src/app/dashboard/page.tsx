@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { CourseCard } from "@/components/course-card";
+import { DashboardSection } from "@/components/dashboard-section";
 import type { Database } from "@/types/database";
 
 type Course = Database["public"]["Tables"]["courses"]["Row"];
@@ -24,13 +25,20 @@ export default async function DashboardPage() {
   const enrolledMap = new Map((enrollments ?? []).map((e) => [e.course_id, e]));
   const gameMap = new Map((gamification ?? []).map((g) => [g.course_id, g]));
 
-  // Group courses by category preserving order
-  const grouped = new Map<string, { meta: { name: string; icon: string | null; order: number; slug: string }; items: Course[] }>();
+  const grouped = new Map<
+    string,
+    { meta: { name: string; icon: string | null; order: number; slug: string }; items: Course[] }
+  >();
   (courses ?? []).forEach((c) => {
     const key = c.category_slug ?? "general";
     if (!grouped.has(key)) {
       grouped.set(key, {
-        meta: { name: c.category ?? "General", icon: c.category_icon, order: c.category_order ?? 0, slug: key },
+        meta: {
+          name: c.category ?? "General",
+          icon: c.category_icon,
+          order: c.category_order ?? 0,
+          slug: key,
+        },
         items: [],
       });
     }
@@ -52,8 +60,8 @@ export default async function DashboardPage() {
         </div>
       )}
 
-      {orderedCategories.map((cat) => (
-        <section key={cat.meta.slug} className="space-y-3 sm:space-y-4">
+      {orderedCategories.map((cat, i) => (
+        <DashboardSection key={cat.meta.slug} index={i}>
           <div className="flex items-center gap-3">
             {cat.meta.icon && (
               <span className="text-2xl sm:text-3xl" aria-hidden>
@@ -77,7 +85,7 @@ export default async function DashboardPage() {
               />
             ))}
           </div>
-        </section>
+        </DashboardSection>
       ))}
     </div>
   );
