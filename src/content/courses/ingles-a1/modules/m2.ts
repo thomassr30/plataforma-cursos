@@ -1,0 +1,113 @@
+import type { ModuleData } from "@/types/course";
+
+export const m2: ModuleData = {
+  slug: "m2",
+  number: 2,
+  title: "Saludos y Presentaciones",
+  icon: "👋",
+  intro: "Saber saludar y presentarte es lo PRIMERO que necesitas para comunicarte. Aprenderás a decir hola, presentarte, decir tu nacionalidad y despedirte.",
+  totalActivities: 4,
+  blocks: [
+    { kind: "h3", text: "👋 Saludos según la hora del día" },
+    {
+      kind: "table",
+      headers: ["Inglés", "Español", "¿Cuándo?"],
+      rows: [
+        ["Hello", "Hola", "Siempre, formal"],
+        ["Hi", "Hola", "Siempre, informal"],
+        ["Good morning", "Buenos días", "De 6 AM a 12 PM"],
+        ["Good afternoon", "Buenas tardes", "De 12 PM a 6 PM"],
+        ["Good evening", "Buenas tardes/noches", "De 6 PM en adelante"],
+        ["Good night", "Buenas noches", "Solo para despedirse al dormir"],
+      ],
+      speakColIndex: 0,
+    },
+    { kind: "tip", html: "<strong>💡 ¡Cuidado!</strong> 'Good night' NO se usa para saludar al llegar de noche. Solo para despedirte cuando alguien se va a dormir." },
+    { kind: "h3", text: "👤 Presentarte" },
+    {
+      kind: "table",
+      headers: ["Inglés", "Español"],
+      rows: [
+        ["What's your name?", "¿Cómo te llamas?"],
+        ["My name is...", "Mi nombre es..."],
+        ["I'm...", "Soy / Me llamo..."],
+        ["Nice to meet you", "Mucho gusto"],
+        ["How are you?", "¿Cómo estás?"],
+        ["I'm fine, thanks", "Estoy bien, gracias"],
+        ["Where are you from?", "¿De dónde eres?"],
+        ["I'm from...", "Soy de..."],
+      ],
+      speakColIndex: 0,
+    },
+    { kind: "h3", text: "🌍 Países y Nacionalidades" },
+    {
+      kind: "table",
+      headers: ["País", "Nacionalidad", "Idioma"],
+      rows: [
+        ["United States", "American", "English"],
+        ["United Kingdom", "British", "English"],
+        ["Spain", "Spanish", "Spanish"],
+        ["Mexico", "Mexican", "Spanish"],
+        ["Colombia", "Colombian", "Spanish"],
+        ["France", "French", "French"],
+        ["Italy", "Italian", "Italian"],
+        ["Japan", "Japanese", "Japanese"],
+      ],
+      speakColIndex: 1,
+    },
+    { kind: "h3", text: "💬 Conversación: Conociendo a alguien" },
+    {
+      kind: "conversation",
+      lines: [
+        { side: "A", en: "Hi! I'm Luke. What's your name?", es: "¡Hola! Soy Luke. ¿Cómo te llamas?" },
+        { side: "B", en: "Hello, Luke. My name is Maria. Nice to meet you!", es: "Hola, Luke. Mi nombre es María. ¡Mucho gusto!" },
+        { side: "A", en: "Where are you from?", es: "¿De dónde eres?" },
+        { side: "B", en: "I'm from Colombia. And you?", es: "Soy de Colombia. ¿Y tú?" },
+        { side: "A", en: "I'm from the United States.", es: "Soy de Estados Unidos." },
+      ],
+    },
+    {
+      kind: "flashcards",
+      key: "m2_flashcards",
+      cards: [
+        { en: "Hello", es: "Hola", phon: "jelóu" },
+        { en: "Good morning", es: "Buenos días", phon: "gud mórning" },
+        { en: "How are you?", es: "¿Cómo estás?", phon: "jáu ar yu" },
+        { en: "I'm fine, thanks", es: "Estoy bien, gracias", phon: "aim fain zenks" },
+        { en: "Nice to meet you", es: "Mucho gusto", phon: "nais tu mit yu" },
+        { en: "Goodbye", es: "Adiós", phon: "gudbái" },
+      ],
+    },
+    {
+      kind: "fillBlanks",
+      key: "m2_fill",
+      items: [
+        { text: "Good ___, teacher!", answer: "morning", es: "Buenos días, profesor" },
+        { text: "Hi! ___'s your name?", answer: "What", es: "Hola, ¿cómo te llamas?" },
+        { text: "My ___ is Anna.", answer: "name", es: "Mi nombre es Anna" },
+        { text: "Where are you ___?", answer: "from", es: "¿De dónde eres?" },
+      ],
+    },
+    {
+      kind: "matching",
+      key: "m2_matching",
+      pairs: [
+        { en: "Spain", es: "Spanish" }, { en: "Mexico", es: "Mexican" },
+        { en: "France", es: "French" }, { en: "Italy", es: "Italian" },
+        { en: "Japan", es: "Japanese" }, { en: "Brazil", es: "Brazilian" },
+      ],
+    },
+    {
+      kind: "quiz",
+      key: "m2_quiz",
+      questions: [
+        { q: '¿Cómo se dice "Mucho gusto"?', options: ["How are you?", "Nice to meet you", "See you", "Goodbye"], correct: 1 },
+        { q: "¿Qué saludo se usa entre 12 PM y 6 PM?", options: ["Good morning", "Good night", "Good afternoon", "Good evening"], correct: 2 },
+        { q: '¿Cuál es la respuesta correcta a "How are you?"?', options: ["I'm Maria", "I'm fine, thanks", "I'm from Spain", "Goodbye"], correct: 1 },
+        { q: "¿Cuál es la nacionalidad de alguien de Colombia?", options: ["Colombian", "Colombiano", "Colomb", "Colomby"], correct: 0 },
+        { q: '¿Cómo se dice "¿De dónde eres?"', options: ["Who are you?", "Where you from?", "Where are you from?", "What is you?"], correct: 2 },
+        { q: "¿Qué frase es informal?", options: ["Hello", "Hi", "Good morning", "Good evening"], correct: 1 },
+      ],
+    },
+  ],
+};
