@@ -21,16 +21,16 @@ export default async function ModulePage({
   const next = idx < course.modules.length - 1 ? course.modules[idx + 1] : null;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
         <Link href={`/cursos/${slug}`} className="text-sm text-muted-foreground hover:text-foreground">
           ← Volver al curso
         </Link>
-        <h1 className="text-3xl font-bold mt-2 flex items-center gap-3">
-          <span>{moduleData.icon}</span>
-          Módulo {moduleData.number}: {moduleData.title}
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mt-2 flex items-start gap-2 sm:gap-3">
+          <span className="text-2xl sm:text-3xl shrink-0">{moduleData.icon}</span>
+          <span>Módulo {moduleData.number}: {moduleData.title}</span>
         </h1>
-        <p className="text-muted-foreground mt-1">{moduleData.intro}</p>
+        <p className="text-sm sm:text-base text-muted-foreground mt-1">{moduleData.intro}</p>
       </div>
 
       <ModuleClient courseSlug={slug} moduleData={moduleData} />

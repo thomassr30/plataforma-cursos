@@ -10,6 +10,7 @@ export const inglesA1: CourseDefinition = {
   slug: "ingles-a1",
   title: "Inglés A1 — Certificación",
   level: "A1",
+  category: { slug: "idiomas", name: "Idiomas", icon: "🌍", order: 1 },
   modules,
   glossary,
   stories,

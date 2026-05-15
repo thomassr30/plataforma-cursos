@@ -16,20 +16,31 @@ export function CourseCard({ course, isEnrolled, gamification }: Props) {
   const gradient = `linear-gradient(135deg, ${course.color_from ?? "#2563eb"}, ${course.color_to ?? "#7c3aed"})`;
   return (
     <Card className="overflow-hidden flex flex-col">
-      <div className="h-32 flex items-center justify-center text-6xl text-white" style={{ background: gradient }}>
-        {course.icon ?? "📚"}
+      <div
+        className="h-32 flex items-center justify-center text-6xl text-white relative"
+        style={{ background: gradient }}
+      >
+        <span>{course.icon ?? "📚"}</span>
+        {course.category && course.category !== "General" && (
+          <span className="absolute top-2 left-2 text-[10px] sm:text-xs font-semibold bg-white/20 backdrop-blur text-white px-2 py-1 rounded-full">
+            {course.category_icon ? `${course.category_icon} ` : ""}
+            {course.category}
+          </span>
+        )}
       </div>
       <CardHeader>
         <div className="flex justify-between items-start gap-2">
-          <CardTitle className="text-xl">{course.title}</CardTitle>
+          <CardTitle className="text-base sm:text-xl">{course.title}</CardTitle>
           {course.level && (
-            <span className="text-xs font-bold bg-accent text-accent-foreground px-2 py-1 rounded">{course.level}</span>
+            <span className="text-xs font-bold bg-accent text-accent-foreground px-2 py-1 rounded shrink-0">
+              {course.level}
+            </span>
           )}
         </div>
         <CardDescription className="line-clamp-2">{course.description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4 flex-1 flex flex-col justify-between">
-        <div className="flex gap-4 text-sm text-muted-foreground">
+        <div className="flex gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground flex-wrap">
           <span className="flex items-center gap-1">
             <BookOpen className="w-4 h-4" /> {course.total_modules} módulos
           </span>

@@ -95,14 +95,22 @@ export type Story = {
   questions: QuizQuestion[];
 };
 
+export type CourseCategory = {
+  slug: string;
+  name: string;
+  icon?: string;
+  order: number;
+};
+
 export type CourseDefinition = {
   slug: string;
   title: string;
   level: string;
+  category?: CourseCategory;
   modules: ModuleData[];
   glossary: GlossaryEntry[];
-  stories: Story[];
+  stories?: Story[]; // opcional (cursos técnicos pueden no tener cuentos)
   finalExam: QuizQuestion[];
-  speakPhrases: SpeakPhrase[];
+  speakPhrases?: SpeakPhrase[]; // opcional (solo cursos de idiomas)
   achievements: Achievement[];
 };

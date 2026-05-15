@@ -45,6 +45,10 @@ export type Database = {
           icon: string | null;
           color_from: string | null;
           color_to: string | null;
+          category: string;
+          category_slug: string;
+          category_icon: string | null;
+          category_order: number;
           is_active: boolean;
           created_at: string;
         };
@@ -59,6 +63,10 @@ export type Database = {
           icon?: string | null;
           color_from?: string | null;
           color_to?: string | null;
+          category?: string;
+          category_slug?: string;
+          category_icon?: string | null;
+          category_order?: number;
           is_active?: boolean;
           created_at?: string;
         };
@@ -73,6 +81,10 @@ export type Database = {
           icon?: string | null;
           color_from?: string | null;
           color_to?: string | null;
+          category?: string;
+          category_slug?: string;
+          category_icon?: string | null;
+          category_order?: number;
           is_active?: boolean;
         };
       };

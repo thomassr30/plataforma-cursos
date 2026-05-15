@@ -32,31 +32,31 @@ function BlockRender({ block, onActivityComplete, onQuizComplete }: { block: Blo
   switch (block.kind) {
     case "info":
       return (
-        <div className="p-4 bg-blue-50 dark:bg-blue-950/30 border-l-4 border-blue-500 rounded">
+        <div className="p-3 sm:p-4 bg-blue-50 dark:bg-blue-950/30 border-l-4 border-blue-500 rounded text-sm sm:text-base">
           <span dangerouslySetInnerHTML={{ __html: block.html }} />
         </div>
       );
     case "tip":
       return (
-        <div className="p-4 bg-amber-50 dark:bg-amber-950/30 border-l-4 border-amber-500 rounded">
+        <div className="p-3 sm:p-4 bg-amber-50 dark:bg-amber-950/30 border-l-4 border-amber-500 rounded text-sm sm:text-base">
           <span dangerouslySetInnerHTML={{ __html: block.html }} />
         </div>
       );
     case "successBox":
       return (
-        <div className="p-4 bg-emerald-50 dark:bg-emerald-950/30 border-l-4 border-emerald-500 rounded">
+        <div className="p-3 sm:p-4 bg-emerald-50 dark:bg-emerald-950/30 border-l-4 border-emerald-500 rounded text-sm sm:text-base">
           <span dangerouslySetInnerHTML={{ __html: block.html }} />
         </div>
       );
     case "h3":
-      return <h3 className="text-xl font-bold text-primary mt-6">{block.text}</h3>;
+      return <h3 className="text-lg sm:text-xl font-bold text-primary mt-4 sm:mt-6">{block.text}</h3>;
     case "h4":
-      return <h4 className="font-semibold text-lg mt-3">{block.text}</h4>;
+      return <h4 className="font-semibold text-base sm:text-lg mt-3">{block.text}</h4>;
     case "paragraph":
-      return <p className="leading-relaxed" dangerouslySetInnerHTML={{ __html: block.html }} />;
+      return <p className="leading-relaxed text-sm sm:text-base" dangerouslySetInnerHTML={{ __html: block.html }} />;
     case "list":
       return (
-        <ul className="list-disc pl-6 space-y-1">
+        <ul className="list-disc pl-6 space-y-1 text-sm sm:text-base">
           {block.items.map((it, i) => (
             <li key={i} dangerouslySetInnerHTML={{ __html: it }} />
           ))}
@@ -64,15 +64,15 @@ function BlockRender({ block, onActivityComplete, onQuizComplete }: { block: Blo
       );
     case "table":
       return (
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse rounded-lg overflow-hidden shadow-sm">
+        <div className="overflow-x-auto -mx-3 sm:mx-0 px-3 sm:px-0">
+          <table className="w-full border-collapse rounded-lg overflow-hidden shadow-sm text-sm">
             <thead>
               <tr>
                 {block.headers.map((h, i) => (
-                  <th key={i} className="bg-primary text-primary-foreground px-3 py-2 text-left">{h}</th>
+                  <th key={i} className="bg-primary text-primary-foreground px-2 sm:px-3 py-2 text-left whitespace-nowrap">{h}</th>
                 ))}
                 {block.speakColIndex !== undefined && (
-                  <th className="bg-primary text-primary-foreground px-3 py-2 text-left">🔊</th>
+                  <th className="bg-primary text-primary-foreground px-2 py-2 text-left">🔊</th>
                 )}
               </tr>
             </thead>
@@ -80,12 +80,12 @@ function BlockRender({ block, onActivityComplete, onQuizComplete }: { block: Blo
               {block.rows.map((row, ri) => (
                 <tr key={ri} className="even:bg-muted/50 border-b">
                   {row.map((cell, ci) => (
-                    <td key={ci} className="px-3 py-2">
+                    <td key={ci} className="px-2 sm:px-3 py-2 align-top">
                       {typeof cell === "string" ? cell : <span dangerouslySetInnerHTML={{ __html: cell.html }} />}
                     </td>
                   ))}
                   {block.speakColIndex !== undefined && (
-                    <td className="px-3 py-2">
+                    <td className="px-2 py-2">
                       <Button variant="ghost" size="sm" onClick={() => speak(String(row[block.speakColIndex!]))}>
                         <Volume2 className="w-4 h-4" />
                       </Button>
@@ -99,14 +99,14 @@ function BlockRender({ block, onActivityComplete, onQuizComplete }: { block: Blo
       );
     case "vocab":
       return (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
           {block.items.map((it, i) => (
             <div key={i} className="bg-card border rounded-lg p-3 flex items-center justify-between gap-2">
-              <div>
-                <div className="font-semibold text-primary">{it.word}</div>
-                <div className="text-sm text-muted-foreground">{it.meaning}</div>
+              <div className="min-w-0">
+                <div className="font-semibold text-primary truncate">{it.word}</div>
+                <div className="text-sm text-muted-foreground truncate">{it.meaning}</div>
               </div>
-              <Button variant="ghost" size="icon" onClick={() => speak(it.word)}>
+              <Button variant="ghost" size="icon" onClick={() => speak(it.word)} className="shrink-0">
                 <Volume2 className="w-4 h-4" />
               </Button>
             </div>
@@ -115,16 +115,16 @@ function BlockRender({ block, onActivityComplete, onQuizComplete }: { block: Blo
       );
     case "conversation":
       return (
-        <div className="bg-muted/60 rounded-xl p-4 space-y-3">
+        <div className="bg-muted/60 rounded-xl p-3 sm:p-4 space-y-3">
           {block.lines.map((l, i) => (
-            <div key={i} className={`flex gap-3 ${l.side === "B" ? "flex-row-reverse" : ""}`}>
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-white shrink-0 ${l.side === "A" ? "bg-primary" : "bg-amber-500"}`}>
+            <div key={i} className={`flex gap-2 sm:gap-3 ${l.side === "B" ? "flex-row-reverse" : ""}`}>
+              <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-white shrink-0 text-sm ${l.side === "A" ? "bg-primary" : "bg-amber-500"}`}>
                 {l.side}
               </div>
-              <div className="bg-card rounded-2xl px-4 py-2 shadow-sm max-w-[80%]">
-                <div className="flex items-center gap-2 flex-wrap">
+              <div className="bg-card rounded-2xl px-3 sm:px-4 py-2 shadow-sm max-w-[85%] sm:max-w-[80%]">
+                <div className="flex items-start gap-2 flex-wrap text-sm sm:text-base">
                   <span>{l.en}</span>
-                  <Button variant="ghost" size="sm" onClick={() => speak(l.en)}>
+                  <Button variant="ghost" size="sm" className="h-6 px-1" onClick={() => speak(l.en)}>
                     <Volume2 className="w-3 h-3" />
                   </Button>
                 </div>

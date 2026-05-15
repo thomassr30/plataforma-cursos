@@ -1,0 +1,55 @@
+import type { GlossaryEntry } from "@/types/course";
+
+export const glossary: GlossaryEntry[] = [
+  // Fundamentos
+  { en: "DDD", es: "Domain-Driven Design: diseño guiado por el dominio del negocio", cat: "Fundamentos" },
+  { en: "Domain", es: "Dominio: área de conocimiento o actividad del negocio", cat: "Fundamentos" },
+  { en: "Subdomain", es: "Subdominio: parte de un dominio más amplio", cat: "Fundamentos" },
+  { en: "Core Domain", es: "Núcleo: lo que diferencia tu negocio. Donde inviertes más", cat: "Fundamentos" },
+  { en: "Supporting Subdomain", es: "Soporte: necesario pero no diferenciador", cat: "Fundamentos" },
+  { en: "Generic Subdomain", es: "Genérico: resuelto por soluciones existentes (auth, email)", cat: "Fundamentos" },
+  { en: "Domain Expert", es: "Experto del dominio: conoce el negocio profundamente", cat: "Fundamentos" },
+  { en: "Domain Model", es: "Modelo de dominio: representación del negocio en código", cat: "Fundamentos" },
+  // Strategic Design
+  { en: "Bounded Context", es: "Contexto Acotado: frontera donde un modelo es consistente", cat: "Strategic" },
+  { en: "Context Map", es: "Mapa de Contextos: relación entre bounded contexts", cat: "Strategic" },
+  { en: "Ubiquitous Language", es: "Lenguaje Ubicuo: vocabulario compartido entre devs y negocio", cat: "Strategic" },
+  { en: "Anti-Corruption Layer (ACL)", es: "Capa anti-corrupción: traduce entre contextos distintos", cat: "Strategic" },
+  { en: "Shared Kernel", es: "Núcleo compartido: subset de modelo entre dos contextos", cat: "Strategic" },
+  { en: "Customer/Supplier", es: "Relación cliente-proveedor entre contextos", cat: "Strategic" },
+  { en: "Conformist", es: "El downstream se adapta sin negociar", cat: "Strategic" },
+  { en: "Open Host Service", es: "API pública estable para integrarse", cat: "Strategic" },
+  { en: "Published Language", es: "Lenguaje publicado para integración", cat: "Strategic" },
+  // Tactical Design
+  { en: "Entity", es: "Entidad: tiene identidad única que persiste en el tiempo", cat: "Tactical" },
+  { en: "Value Object", es: "Objeto de Valor: inmutable, sin identidad, definido por sus atributos", cat: "Tactical" },
+  { en: "Aggregate", es: "Agregado: cluster de objetos tratado como unidad", cat: "Tactical" },
+  { en: "Aggregate Root", es: "Raíz del agregado: punto de entrada y garantía de consistencia", cat: "Tactical" },
+  { en: "Domain Event", es: "Evento de Dominio: algo importante que pasó", cat: "Tactical" },
+  { en: "Repository", es: "Repositorio: abstracción para persistir/recuperar agregados", cat: "Tactical" },
+  { en: "Domain Service", es: "Servicio de Dominio: lógica que no pertenece a una entidad sola", cat: "Tactical" },
+  { en: "Factory", es: "Fábrica: crea agregados complejos", cat: "Tactical" },
+  { en: "Specification", es: "Especificación: regla de negocio reutilizable", cat: "Tactical" },
+  { en: "Invariant", es: "Invariante: regla que SIEMPRE debe cumplirse", cat: "Tactical" },
+  // Application/Infrastructure
+  { en: "Application Service", es: "Servicio de Aplicación: orquesta casos de uso (sin lógica de negocio)", cat: "Capas" },
+  { en: "Use Case", es: "Caso de Uso: una intención del usuario (Crear Pedido, Cancelar...)", cat: "Capas" },
+  { en: "Command", es: "Comando: intención de cambiar el estado", cat: "Capas" },
+  { en: "Query", es: "Consulta: leer datos sin cambiar estado", cat: "Capas" },
+  { en: "DTO", es: "Data Transfer Object: estructura para transportar datos entre capas", cat: "Capas" },
+  { en: "CQRS", es: "Command Query Responsibility Segregation: separar lecturas de escrituras", cat: "Capas" },
+  { en: "Event Sourcing", es: "Persistir el estado como secuencia de eventos", cat: "Capas" },
+  // Arquitectura
+  { en: "Hexagonal Architecture", es: "Arquitectura Hexagonal (Ports & Adapters)", cat: "Arquitectura" },
+  { en: "Clean Architecture", es: "Arquitectura Limpia (Robert C. Martin)", cat: "Arquitectura" },
+  { en: "Onion Architecture", es: "Arquitectura Cebolla (Jeffrey Palermo)", cat: "Arquitectura" },
+  { en: "Port", es: "Puerto: interfaz que la app expone o consume", cat: "Arquitectura" },
+  { en: "Adapter", es: "Adaptador: implementación concreta de un puerto", cat: "Arquitectura" },
+  { en: "Inversion of Control (IoC)", es: "Inversión de Control: el framework llama a tu código", cat: "Arquitectura" },
+  { en: "Dependency Inversion", es: "Las capas internas no dependen de las externas", cat: "Arquitectura" },
+  // Patrones
+  { en: "Saga", es: "Transacción de larga duración entre servicios", cat: "Patrones" },
+  { en: "Outbox Pattern", es: "Garantiza entrega de eventos persistiendo junto a los datos", cat: "Patrones" },
+  { en: "Eventual Consistency", es: "Los datos convergen al estado correcto eventualmente", cat: "Patrones" },
+  { en: "Process Manager", es: "Coordina un proceso de negocio que abarca varios agregados", cat: "Patrones" },
+];

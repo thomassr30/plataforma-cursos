@@ -11,11 +11,11 @@ export default async function CourseHomePage({ params }: { params: Promise<{ slu
   if (!course) notFound();
 
   return (
-    <div className="space-y-6">
-      <div className="bg-gradient-to-r from-primary to-purple-600 text-white p-8 rounded-2xl shadow-lg">
-        <h1 className="text-4xl font-bold mb-2">{course.title}</h1>
-        <p className="opacity-90 max-w-2xl">
-          Curso interactivo de nivel {course.level}. {course.modules.length} módulos, juegos, ejercicios de pronunciación,
+    <div className="space-y-4 sm:space-y-6">
+      <div className="bg-gradient-to-r from-primary to-purple-600 text-white p-5 sm:p-8 rounded-2xl shadow-lg">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">{course.title}</h1>
+        <p className="opacity-90 max-w-2xl text-sm sm:text-base">
+          Curso interactivo de nivel {course.level}. {course.modules.length} módulos, juegos, ejercicios,
           repetición espaciada, exámenes y certificado final.
         </p>
         <Button asChild className="mt-4 bg-white text-primary hover:bg-white/90">
@@ -25,7 +25,7 @@ export default async function CourseHomePage({ params }: { params: Promise<{ slu
         </Button>
       </div>
 
-      <h2 className="text-2xl font-bold">Módulos del curso</h2>
+      <h2 className="text-xl sm:text-2xl font-bold">Módulos del curso</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {course.modules.map((m) => (
           <Card key={m.slug} className="hover:shadow-md transition-shadow">

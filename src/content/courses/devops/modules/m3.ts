@@ -1,0 +1,88 @@
+import type { ModuleData } from "@/types/course";
+
+export const m3: ModuleData = {
+  slug: "m3",
+  number: 3,
+  title: "Containers con Docker",
+  icon: "🐳",
+  intro: "Docker te permite empaquetar tu app con TODO lo que necesita en una 'cajita' aislada. Funciona igual en tu máquina y en producción. Es la base de la infraestructura moderna.",
+  totalActivities: 3,
+  blocks: [
+    { kind: "h3", text: "🐳 ¿Qué es un contenedor?" },
+    { kind: "paragraph", html: "Un <strong>contenedor</strong> es una instancia ligera y aislada que corre tu app + dependencias sobre el kernel del host. Una <strong>imagen</strong> es la plantilla inmutable; un <strong>contenedor</strong> es la instancia ejecutándose." },
+    { kind: "h3", text: "📝 Dockerfile básico" },
+    { kind: "paragraph", html: "El <strong>Dockerfile</strong> es la receta para construir una imagen:" },
+    {
+      kind: "table",
+      headers: ["Instrucción", "Significado"],
+      rows: [
+        ["FROM node:20-alpine", "Imagen base"],
+        ["WORKDIR /app", "Carpeta de trabajo"],
+        ["COPY package*.json ./", "Copiar archivos"],
+        ["RUN npm install", "Ejecutar comando en build"],
+        ["COPY . .", "Copiar el resto del código"],
+        ["EXPOSE 3000", "Documentar puerto"],
+        ["CMD [\"npm\",\"start\"]", "Comando al iniciar el container"],
+      ],
+    },
+    { kind: "h3", text: "🔧 Comandos esenciales" },
+    {
+      kind: "table",
+      headers: ["Comando", "Acción"],
+      rows: [
+        ["docker build -t myapp .", "Construir imagen"],
+        ["docker run -d -p 3000:3000 myapp", "Lanzar container detached y mapear puerto"],
+        ["docker ps", "Listar containers en ejecución"],
+        ["docker ps -a", "Listar TODOS los containers"],
+        ["docker logs <id>", "Ver logs"],
+        ["docker exec -it <id> sh", "Entrar al container"],
+        ["docker stop <id>", "Parar"],
+        ["docker rm <id>", "Eliminar"],
+        ["docker images", "Listar imágenes"],
+        ["docker rmi <id>", "Eliminar imagen"],
+      ],
+    },
+    { kind: "tip", html: "<strong>💡 Multi-stage builds:</strong> usa múltiples <code>FROM</code> en un Dockerfile para reducir tamaño final (compilar en una etapa, copiar solo el resultado a la siguiente)." },
+    { kind: "h3", text: "🐙 docker-compose" },
+    { kind: "paragraph", html: "Para orquestar varios containers (app + BD + cache) usamos <strong>docker-compose.yml</strong>:" },
+    {
+      kind: "info",
+      html: "<pre style='font-size:0.85em; white-space:pre-wrap'>services:\n  app:\n    build: .\n    ports: [\"3000:3000\"]\n    depends_on: [db]\n  db:\n    image: postgres:16\n    environment:\n      POSTGRES_PASSWORD: secret</pre>",
+    },
+    {
+      kind: "fillBlanks",
+      key: "m3_fill",
+      items: [
+        { text: "docker ___ -t myapp . construye una imagen.", answer: "build", es: "build" },
+        { text: "docker ___ lista containers en ejecución.", answer: "ps", es: "ps" },
+        { text: "Para mapear puertos: docker run -___ 3000:3000.", answer: "p", es: "p" },
+        { text: "El archivo se llama ___ (sin extensión).", answer: "Dockerfile", es: "Dockerfile" },
+        { text: "Para correr en background: docker run -___ myapp.", answer: "d", es: "d" },
+      ],
+    },
+    {
+      kind: "matching",
+      key: "m3_matching",
+      pairs: [
+        { en: "image", es: "plantilla inmutable" },
+        { en: "container", es: "instancia ejecutable" },
+        { en: "volume", es: "almacenamiento persistente" },
+        { en: "registry", es: "repositorio de imágenes" },
+        { en: "Dockerfile", es: "receta de la imagen" },
+        { en: "docker-compose", es: "orquestar múltiples containers" },
+      ],
+    },
+    {
+      kind: "quiz",
+      key: "m3_quiz",
+      questions: [
+        { q: "¿Qué archivo define cómo construir una imagen?", options: ["docker.config", "Dockerfile", "image.yml", "compose.yml"], correct: 1 },
+        { q: "¿Qué comando lista containers corriendo?", options: ["docker list", "docker ps", "docker show", "docker run"], correct: 1 },
+        { q: "Flag para detached mode:", options: ["-r", "-d", "-x", "-b"], correct: 1 },
+        { q: "¿Qué hace EXPOSE 3000 en Dockerfile?", options: ["Abre el puerto", "Solo lo documenta", "Lo bloquea", "Asigna IP"], correct: 1 },
+        { q: "¿Cuál es la última instrucción típica?", options: ["RUN", "COPY", "CMD o ENTRYPOINT", "FROM"], correct: 2 },
+        { q: "¿Cómo entras a un container?", options: ["docker enter <id>", "docker exec -it <id> sh", "docker ssh <id>", "docker shell <id>"], correct: 1 },
+      ],
+    },
+  ],
+};

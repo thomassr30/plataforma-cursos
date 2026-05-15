@@ -41,13 +41,64 @@ export default async function CourseLayout({
       );
   }
 
+  // Fetch progress and gamification stats
+  const [{ data: progressRows }, { data: game }] = await Promise.all([
+    dbCourse
+      ? supabase
+          .from("user_module_progress")
+          .select("module_slug, activity_key")
+          .eq("user_id", user.id)
+          .eq("course_id", dbCourse.id)
+      : Promise.resolve({ data: [] }),
+    dbCourse
+      ? supabase
+          .from("user_gamification")
+          .select("xp, level, streak")
+          .eq("user_id", user.id)
+          .eq("course_id", dbCourse.id)
+          .single()
+      : Promise.resolve({ data: null }),
+  ]);
+
+  const moduleProgress: Record<string, number> = {};
+  const moduleSets = new Map<string, Set<string>>();
+  (progressRows ?? []).forEach((r) => {
+    if (!moduleSets.has(r.module_slug)) moduleSets.set(r.module_slug, new Set());
+    moduleSets.get(r.module_slug)!.add(r.activity_key);
+  });
+  moduleSets.forEach((set, slug) => {
+    moduleProgress[slug] = set.size;
+  });
+
+  // Overall % across all modules
+  const totalActivities = course.modules.reduce((sum, m) => sum + m.totalActivities, 0);
+  const doneActivities = course.modules.reduce((sum, m) => sum + Math.min(moduleProgress[m.slug] ?? 0, m.totalActivities), 0);
+  const overallPct = totalActivities > 0 ? Math.round((doneActivities / totalActivities) * 100) : 0;
+
+  const stats = {
+    xp: game?.xp ?? 0,
+    level: game?.level ?? 1,
+    streak: game?.streak ?? 0,
+    overallPct,
+  };
+
   return (
     <div className="min-h-screen bg-muted/40">
       <DashboardHeader profile={profile ?? { full_name: null, avatar_url: null, email: user.email ?? "" }} />
-      <div className="container py-6 grid gap-6 lg:grid-cols-[260px_1fr]">
+      <div className="container py-4 lg:py-6 grid gap-4 lg:gap-6 lg:grid-cols-[280px_1fr]">
         <CourseSidebar
           courseSlug={slug}
-          modules={course.modules.map((m) => ({ slug: m.slug, number: m.number, title: m.title, icon: m.icon }))}
+          modules={course.modules.map((m) => ({
+            slug: m.slug,
+            number: m.number,
+            title: m.title,
+            icon: m.icon,
+            totalActivities: m.totalActivities,
+          }))}
+          hasSpeak={(course.speakPhrases?.length ?? 0) > 0}
+          hasStories={(course.stories?.length ?? 0) > 0}
+          stats={stats}
+          moduleProgress={moduleProgress}
         />
         <main className="min-w-0">{children}</main>
       </div>

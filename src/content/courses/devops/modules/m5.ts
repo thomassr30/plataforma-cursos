@@ -1,0 +1,87 @@
+import type { ModuleData } from "@/types/course";
+
+export const m5: ModuleData = {
+  slug: "m5",
+  number: 5,
+  title: "Linux y Shell Scripting",
+  icon: "🐧",
+  intro: "Todo servidor que verás en producción es Linux. Dominar la terminal es un superpoder.",
+  totalActivities: 3,
+  blocks: [
+    { kind: "h3", text: "📁 Comandos esenciales de archivos" },
+    {
+      kind: "table",
+      headers: ["Comando", "Descripción"],
+      rows: [
+        ["ls -la", "Listar archivos con detalles"],
+        ["cd /ruta", "Cambiar directorio"],
+        ["pwd", "Mostrar directorio actual"],
+        ["mkdir nombre", "Crear directorio"],
+        ["rm -rf nombre", "Borrar (recursivo, forzado)"],
+        ["cp origen destino", "Copiar"],
+        ["mv origen destino", "Mover/renombrar"],
+        ["cat archivo", "Mostrar contenido"],
+        ["less archivo", "Ver paginado"],
+        ["grep 'patrón' archivo", "Buscar texto"],
+        ["find / -name 'patrón'", "Buscar archivos"],
+      ],
+    },
+    { kind: "h3", text: "⚙️ Procesos y servicios" },
+    {
+      kind: "table",
+      headers: ["Comando", "Acción"],
+      rows: [
+        ["ps aux", "Listar procesos"],
+        ["top / htop", "Monitor en tiempo real"],
+        ["kill PID", "Terminar proceso"],
+        ["kill -9 PID", "Forzar terminación"],
+        ["systemctl status nombre", "Estado de servicio"],
+        ["systemctl restart nombre", "Reiniciar servicio"],
+        ["journalctl -u nombre", "Ver logs del servicio"],
+      ],
+    },
+    { kind: "h3", text: "🔐 Permisos" },
+    { kind: "paragraph", html: "Cada archivo tiene <strong>rwx</strong> para owner, group y others. <code>chmod 755 archivo</code> = rwxr-xr-x. <code>chmod +x script.sh</code> hace ejecutable." },
+    { kind: "h3", text: "📝 Bash script básico" },
+    {
+      kind: "info",
+      html: "<pre style='font-size:0.85em; white-space:pre-wrap'>#!/bin/bash\nset -euo pipefail\n\nNAME=${1:-world}\necho \"Hello, $NAME\"\n\nfor i in 1 2 3; do\n  echo \"Loop $i\"\ndone</pre>",
+    },
+    { kind: "tip", html: "<strong>💡 Siempre usa</strong> <code>set -euo pipefail</code> en bash: detiene el script ante errores, variables sin definir, o fallos en pipes." },
+    {
+      kind: "fillBlanks",
+      key: "m5_fill",
+      items: [
+        { text: "Lista archivos con detalles: ls -___", answer: "la", es: "la" },
+        { text: "Da permiso de ejecución: chmod +___", answer: "x", es: "x" },
+        { text: "Buscar texto: ___ 'palabra' archivo.txt", answer: "grep", es: "grep" },
+        { text: "Ver procesos: ___ aux", answer: "ps", es: "ps" },
+        { text: "Conectarse a otro servidor: ___ user@host", answer: "ssh", es: "ssh" },
+      ],
+    },
+    {
+      kind: "matching",
+      key: "m5_matching",
+      pairs: [
+        { en: "cron", es: "Programador de tareas" },
+        { en: "systemd", es: "Sistema de init/servicios" },
+        { en: "ssh", es: "Acceso remoto seguro" },
+        { en: "chmod", es: "Cambiar permisos" },
+        { en: "tail -f", es: "Seguir un log en tiempo real" },
+        { en: "grep", es: "Buscar texto en archivos" },
+      ],
+    },
+    {
+      kind: "quiz",
+      key: "m5_quiz",
+      questions: [
+        { q: "¿Qué comando elimina recursivamente?", options: ["del -r", "rm -rf", "delete -all", "kill -r"], correct: 1 },
+        { q: "¿Qué hace 'tail -f archivo.log'?", options: ["Borra el log", "Sigue el log en tiempo real", "Comprime el log", "Lo edita"], correct: 1 },
+        { q: "¿Qué permisos da chmod 755?", options: ["rwxrwxrwx", "rwxr-xr-x", "rw-rw-rw-", "r--r--r--"], correct: 1 },
+        { q: "¿Qué hace 'kill -9'?", options: ["Pide cerrar amablemente", "Fuerza la terminación", "Reinicia el proceso", "Mata todo el sistema"], correct: 1 },
+        { q: "¿Qué shebang inicia un script bash?", options: ["#!/bash", "#!/bin/bash", "#bash", "#!bash"], correct: 1 },
+        { q: "¿Qué hace 'set -e'?", options: ["Activa echo", "Detiene el script si un comando falla", "Limpia errores", "Reinicia variables"], correct: 1 },
+      ],
+    },
+  ],
+};

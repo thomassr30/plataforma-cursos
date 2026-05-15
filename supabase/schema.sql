@@ -66,9 +66,15 @@ create table if not exists public.courses (
   icon text,
   color_from text,
   color_to text,
+  category text default 'General' not null,
+  category_slug text default 'general' not null,
+  category_icon text,
+  category_order int default 0,
   is_active boolean default true,
   created_at timestamptz default now() not null
 );
+
+create index if not exists idx_courses_category on public.courses(category_slug);
 
 alter table public.courses enable row level security;
 create policy "Courses: read for authenticated" on public.courses
@@ -244,13 +250,17 @@ create policy "Mistakes: own delete" on public.user_mistakes
 -- =============================================
 -- Seed: insertar curso de Inglés A1
 -- =============================================
-insert into public.courses (slug, title, description, level, language, total_modules, icon, color_from, color_to)
+insert into public.courses (slug, title, description, level, language, total_modules, icon, color_from, color_to, category, category_slug, category_icon, category_order)
 values
-  ('ingles-a1', 'Inglés A1 — Certificación', 'Curso completo de inglés A1 con 19 módulos, juegos interactivos, reconocimiento de voz y certificación final.', 'A1', 'es', 19, '📘', '#2563eb', '#7c3aed')
+  ('ingles-a1', 'Inglés A1 — Certificación', 'Curso completo de inglés A1 con 19 módulos, juegos interactivos, reconocimiento de voz y certificación final.', 'A1', 'es', 19, '📘', '#2563eb', '#7c3aed', 'Idiomas', 'idiomas', '🌍', 1)
 on conflict (slug) do update
   set title = excluded.title,
       description = excluded.description,
       total_modules = excluded.total_modules,
       icon = excluded.icon,
       color_from = excluded.color_from,
-      color_to = excluded.color_to;
+      color_to = excluded.color_to,
+      category = excluded.category,
+      category_slug = excluded.category_slug,
+      category_icon = excluded.category_icon,
+      category_order = excluded.category_order;
