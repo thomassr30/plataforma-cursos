@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
-  // Permitimos build aunque haya errores de tipos: los tipos de Supabase
-  // con build estricto pueden romperse por inferencia recursiva.
-  // Los errores de tipos siguen visibles en desarrollo.
+  // reactStrictMode desactivado en dev porque Next 15 + extensiones del navegador
+  // (React DevTools, Grammarly, etc.) modifican el HTML y disparan warnings de
+  // hidratación en el wrapper interno __next_metadata_boundary__.
+  // Estos warnings son "Recoverable Errors" (la app funciona), pero contaminan la consola.
+  reactStrictMode: false,
   typescript: {
     ignoreBuildErrors: true,
   },
