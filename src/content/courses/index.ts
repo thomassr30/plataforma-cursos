@@ -4,6 +4,7 @@ import { devops } from "./devops";
 import { ddd } from "./ddd";
 import { gcpDigitalLeader } from "./gcp-digital-leader";
 import { awsCloudPractitioner } from "./aws-cloud-practitioner";
+import { floci } from "./floci";
 
 export const courses: Record<string, CourseDefinition> = {
   "ingles-a1": inglesA1,
@@ -11,6 +12,7 @@ export const courses: Record<string, CourseDefinition> = {
   "ddd": ddd,
   "gcp-digital-leader": gcpDigitalLeader,
   "aws-cloud-practitioner": awsCloudPractitioner,
+  "floci": floci,
 };
 
 export function getCourseBySlug(slug: string) {

@@ -1,0 +1,26 @@
+# docker-compose.yml base del curso de Floci
+#
+# Levanta Floci en http://localhost:4566 con persistencia en ./data
+# Para usarlo:
+#   docker compose up -d        # arranca Floci en background
+#   docker compose logs -f      # ver logs
+#   docker compose down         # parar Floci (conserva los datos)
+#   docker compose down -v      # parar Floci y borrar los datos
+
+services:
+  floci:
+    image: hectorvent/floci:latest
+    container_name: floci
+    ports:
+      - "4566:4566"
+    environment:
+      # Modo de almacenamiento: persistente (los datos sobreviven a reinicios)
+      - FLOCI_STORAGE_MODE=persistent
+      - FLOCI_STORAGE_PERSISTENT_PATH=/app/data
+      - FLOCI_DEFAULT_REGION=us-east-1
+      - FLOCI_DEFAULT_ACCOUNT_ID=000000000000
+    volumes:
+      - ./data:/app/data
+      # Lambda y ECS necesitan acceso a Docker para levantar contenedores
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
